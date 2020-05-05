@@ -4,7 +4,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import store from './store';
 import Auth from './modules/auth/pages/Auth';
-import Score from './modules/game/score/components/Score';
+import Game from './modules/game/pages/Game';
 import PanelCustomization from './modules/customization/pages/PanelCustomization';
 import {
   BrowserRouter as Router,
@@ -20,7 +20,7 @@ function App() {
         <Provider store={store} >
             <Switch>
               <Route exact path='/' component={Auth} />
-              <Route exact path='/home' component={Score} />
+              <Route exact path='/home' component={Game} />
               <Route exact path='/customization' component={PanelCustomization} />
               {/* <PrivateRoute exact path='/cart' component={Auth} />
               <PrivateRoute exact path='/customization' component={ColorPicker} /> */}
