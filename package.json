@@ -9,8 +9,8 @@
         "@testing-library/jest-dom": "^4.2.4",
         "@testing-library/react": "^9.3.2",
         "@testing-library/user-event": "^7.1.2",
-        "babel-jest": "^25.2.6",
         "axios": "^0.19.2",
+        "babel-jest": "^25.2.6",
         "react": "^16.13.1",
         "react-color": "^2.18.1",
         "react-dom": "^16.13.1",
@@ -18,7 +18,9 @@
         "react-router-dom": "^5.1.2",
         "react-scripts": "3.4.1",
         "redux": "^4.0.5",
-        "redux-thunk": "^2.3.0"
+        "redux-thunk": "^2.3.0",
+        "rxjs": "^6.5.5",
+        "rxjs-compat": "^6.5.5"
     },
     "scripts": {
         "start": "react-scripts start",

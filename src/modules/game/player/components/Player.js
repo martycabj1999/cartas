@@ -20,10 +20,9 @@ const useStyles = makeStyles({
     },
 });
 
-const Player = () => {
+const Player = (props) => {
 
     const classes = useStyles();
-    const bull = <span className={classes.bullet}>•</span>;
 
     return ( 
         <Container>
@@ -31,11 +30,11 @@ const Player = () => {
                 <Card className={classes.root}>
                     <CardContent>
                         <Typography className={classes.title} color="textSecondary" gutterBottom>
-                            Word of the Day
+                            { props.name }
                         </Typography>
                     </CardContent>
                     <CardActions>
-                        <Button size="small">Learn More</Button>
+                        <Button size="small">{ "Boton" }</Button>
                     </CardActions>
                 </Card>
             </Grid>

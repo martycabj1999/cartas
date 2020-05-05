@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 //Action de redux 
 import { setAuthAction } from '../store/AuthAction';
+import { newGame } from '../../game/provider/GameProvider'
 import UserIcon from "@material-ui/icons/AccountBox"
 import PassIcon from "@material-ui/icons/LockOutlined"
 import Alert from '../../layout/alert/Alert'
@@ -37,26 +38,19 @@ const AuthForm = (props) => {
             [event.target.name]: event.target.value 
         })
     }
-
-    const handleClick = event => {
-        if (disabledButton) {
-            return;
-        }
-        setDisabledButton(true)
-    }
     
 
     const onSubmit = event => {
-        handleClick()
         event.preventDefault();
 
         if ( form.username === "admin" && form.password === "1234" ) {
             setRedirect(true);
             setAuthError(false);
-            setTextError(messages.login_error);
             dispatch(setAuthAction(form));
+            newGame(form.name);
         } else {
             setAuthError(true);
+            setTextError(messages.login_error);
         }
     };
     
