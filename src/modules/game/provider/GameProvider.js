@@ -1,43 +1,81 @@
-import * as http from '../../../services/';
+import graphqlClient from "../../../apollo";
+import { ClientError } from 'front-module-commons';
 
-const GameProvider = {
+class GameProvider {
 
-  getGameById: (gameId) => {
-    return http.get('games/' + gameId );
-  },
 
-  getPlayerByGameId: (gameId) => {
-    return http.get('games/' + gameId );
-  },
+    getGameById(gameId) {
+        return graphqlClient.query({
+            query: require('./gql/game.graphql'),
+            variables: {gameId},
+            fetchPolicy: "network-only"
+        })
+    }
 
-  getMonsterByGameId: (gameId) => {
-    return http.get('games/' + gameId );
-  },
+    getPlayerByGameId(gameId) {
+        return graphqlClient.query({
+            query: require('./gql/playerByGame.graphql'),
+            variables: {gameId},
+            fetchPolicy: "network-only"
+        })
+    }
 
-  getPlayerById: (playerId) => {
-    return http.get('players/' + playerId );
-  },
+    getMonsterByGameId(gameId) {
+        return graphqlClient.query({
+            query: require('./gql/monsterByGame.graphql'),
+            variables: {gameId},
+            fetchPolicy: "network-only"
+        })
+    }
 
-  getMonsterById: (monsterId) => {
-    return http.get('monsters/' + monsterId );
-  },
+    getPlayerById(playerId) {
+        return graphqlClient.query({
+            query: require('./gql/player.graphql'),
+            variables: {playerId},
+            fetchPolicy: "network-only"
+        })
+    }
 
-  getCardsByPlayerId: (playerId) => {
-    return http.get('players/' + playerId + '/cards');
-  },
+    getMonsterById(monsterId) {
+        return graphqlClient.query({
+            query: require('./gql/monster.graphql'),
+            variables: {monsterId},
+            fetchPolicy: "network-only"
+        })
+    }
 
-  newGame: (name) => {
-    const game = new FormData();
-    game.append('name', name);
-    return http.post('games', game);
-  },
+    newGame(name) {
+        return new Promise((resolve, reject) => {
+                graphqlClient.mutate({
+                    mutation: require('./gql/newGame.graphql'),
+                    variables: {name}
+                }).then(data => {
+                    resolve(data)
+                }).catch((apolloError) => {
+                    let clientError = new ClientError(apolloError)
+                    reject(clientError)
+                })
+            }
+        )
 
-  nextTurn: (gameId, card) => {
-    const sendCard = new FormData();
-    sendCard.append('card', card);
-    return http.post('games/' + gameId + '/next-turn', sendCard);
-  },
+    }
+
+    nextTurn(cardId) {
+        return new Promise((resolve, reject) => {
+                graphqlClient.mutate({
+                    mutation: require('./gql/nextTurn.graphql'),
+                    variables: {cardId}
+                }).then(data => {
+                    resolve(data)
+                }).catch((apolloError) => {
+                    let clientError = new ClientError(apolloError)
+                    reject(clientError)
+                })
+            }
+        )
+
+    }
 
 }
 
-export default GameProvider;
+export default new GameProvider()

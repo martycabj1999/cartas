@@ -1,0 +1,5 @@
+query monster($id:Int!){
+    monster(id: $id){
+        name
+    }
+}

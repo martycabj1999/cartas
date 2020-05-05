@@ -1,0 +1,5 @@
+mutation($name:String!){
+    nextTurn(name:$name){
+        name
+    }
+}

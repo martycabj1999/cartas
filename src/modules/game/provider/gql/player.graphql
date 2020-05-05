@@ -1,0 +1,5 @@
+query player($id:Int!){
+    player(id: $id){
+        name
+    }
+}

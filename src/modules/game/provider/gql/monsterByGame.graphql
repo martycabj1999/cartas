@@ -1,0 +1,5 @@
+query monsterByGame($id:Int!){
+    monsterByGame(id: $id){
+        name
+    }
+}
