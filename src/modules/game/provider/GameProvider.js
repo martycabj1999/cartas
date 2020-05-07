@@ -1,5 +1,10 @@
 import axios from 'axios'
 
+const headers = {
+  'Content-Type': 'application/json',
+}
+
+
 export const getGameById = (gameId) => {
   return new Promise((resolve, reject) => {
     axios.get( process.env.REACT_APP_API_URL + '/api/games/' + gameId)
@@ -84,11 +89,16 @@ export const getCardsByPlayerId = (playerId) => {
   })
 }
 
-export const newGame = (name) => {
-  return axios.post( process.env.REACT_APP_API_URL+'/api/games',
-  {
-      name: name,
-  });
+export const newGame = (form) => {
+  return new Promise((resolve, reject) => {
+    axios.post(process.env.REACT_APP_API_URL+'/api/games',form, { headers },)
+        .then((response) => {
+            resolve(response.data);
+        })
+        .catch((error) => {
+            reject(error);
+        });
+    })
 }
 
 export const nextTurn = (gameId, cardId) => {

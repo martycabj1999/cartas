@@ -21,7 +21,7 @@ const AuthForm = (props) => {
 
     //States del componente
     const [form, setForm] = useState({
-        username: '',
+        name: '',
         password: '',
     })
     const [authError, setAuthError] = useState(false);
@@ -43,11 +43,11 @@ const AuthForm = (props) => {
     const onSubmit = event => {
         event.preventDefault();
 
-        if ( form.username === "admin" && form.password === "1234" ) {
+        if ( form.name === "admin" && form.password === "1234" ) {
             setRedirect(true);
             setAuthError(false);
             dispatch(setAuthAction(form));
-            newGame(form.name);
+            newGame(form);
         } else {
             setAuthError(true);
             setTextError(messages.login_error);
@@ -73,12 +73,12 @@ const AuthForm = (props) => {
                         margin="normal"
                         required
                         fullWidth
-                        id="username"
+                        id="name"
                         label={messages.auth_form_username}
-                        name="username"
-                        value={form.username}
+                        name="name"
+                        value={form.name}
                         onChange={onChange}
-                        autoComplete="username"
+                        autoComplete="name"
                         InputProps={{
                             startAdornment: (
                               <InputAdornment position="start">
