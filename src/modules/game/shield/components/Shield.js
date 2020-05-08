@@ -20,7 +20,7 @@ const useStyles = makeStyles({
     },
 });
 
-const Shield = () => {
+const Shield = (props) => {
 
     const classes = useStyles();
 
@@ -28,14 +28,9 @@ const Shield = () => {
         <Container className={classes.container}>
             <Grid container justify="center" xs={12} sm={8} >
                 <Card className={classes.root}>
-                    <CardContent>
-                        <Typography className={classes.title} color="textSecondary" gutterBottom>
-                            Word of the Day
-                        </Typography>
-                    </CardContent>
-                    <CardActions>
-                        <Button size="small">Learn More</Button>
-                    </CardActions>
+                    <Typography className={classes.title} color="textSecondary" gutterBottom>
+                        Shield: { props.player.shield }
+                    </Typography>   
                 </Card>
             </Grid>
         </Container>

@@ -88,6 +88,7 @@ export default function Game() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [game] = React.useState(JSON.parse(localStorage.getItem('game')));
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -143,12 +144,18 @@ export default function Game() {
         </div>
         <Divider />
         <List>
-          {['Current', 'Past', 'Left'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <ControlPointIcon /> : <FastRewindIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
+            <ListItem button >
+              <ListItemIcon><ControlPointIcon /></ListItemIcon>
+              <ListItemText primary={'Current ' + game.currentTurn} />
             </ListItem>
-          ))}
+            <ListItem button >
+              <ListItemIcon><ControlPointIcon /></ListItemIcon>
+              <ListItemText primary={'Past'} />
+            </ListItem>
+            <ListItem button >
+              <ListItemIcon><ControlPointIcon /></ListItemIcon>
+              <ListItemText primary={"Left " + game.turnsLeft} />
+            </ListItem>
         </List>
         <Divider />
         <Button>End Turn</Button>

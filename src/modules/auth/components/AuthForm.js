@@ -39,7 +39,6 @@ const AuthForm = (props) => {
         })
     }
     
-
     const onSubmit = event => {
         event.preventDefault();
 
@@ -47,7 +46,13 @@ const AuthForm = (props) => {
             setRedirect(true);
             setAuthError(false);
             dispatch(setAuthAction(form));
-            newGame(form);
+            newGame(form).then(response => {
+                console.log(response)
+                localStorage.setItem('game', JSON.stringify(response))
+            })
+            .catch( error => {
+                console.log(error)
+            });
         } else {
             setAuthError(true);
             setTextError(messages.login_error);

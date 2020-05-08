@@ -4,10 +4,9 @@ const headers = {
   'Content-Type': 'application/json',
 }
 
-
 export const getGameById = (gameId) => {
   return new Promise((resolve, reject) => {
-    axios.get( process.env.REACT_APP_API_URL + '/api/games/' + gameId)
+    axios.get( process.env.REACT_APP_API_URL + '/api/games/' + gameId, { headers })
         .then((response) => {
             resolve(response.data);
         })
@@ -20,8 +19,9 @@ export const getGameById = (gameId) => {
 }
 
 export const getPlayerByGameId = (gameId) => {
+  console.log(gameId)
   return new Promise((resolve, reject) => {
-    axios.get( process.env.REACT_APP_API_URL + '/api/games/' + gameId + '/player')
+    axios.get( process.env.REACT_APP_API_URL + '/api/games/' + gameId + '/player', { headers })
         .then((response) => {
             resolve(response.data);
         })
@@ -35,7 +35,7 @@ export const getPlayerByGameId = (gameId) => {
 
 export const getMonsterByGameId = (gameId) => {
   return new Promise((resolve, reject) => {
-    axios.get( process.env.REACT_APP_API_URL + '/api/games/' + gameId + '/monster')
+    axios.get( process.env.REACT_APP_API_URL + '/api/games/' + gameId + '/monster', { headers })
         .then((response) => {
             resolve(response.data);
         })
@@ -49,7 +49,7 @@ export const getMonsterByGameId = (gameId) => {
 
 export const getPlayerById = (playerId) => {
   return new Promise((resolve, reject) => {
-    axios.get( process.env.REACT_APP_API_URL + '/api/players' + playerId)
+    axios.get( process.env.REACT_APP_API_URL + '/api/players' + playerId, { headers })
         .then((response) => {
             resolve(response.data);
         })
@@ -63,7 +63,7 @@ export const getPlayerById = (playerId) => {
 
 export const getMonsterById = (monsterId) => {
   return new Promise((resolve, reject) => {
-    axios.get( process.env.REACT_APP_API_URL + '/api/monsters' + monsterId)
+    axios.get( process.env.REACT_APP_API_URL + '/api/monsters' + monsterId , { headers })
         .then((response) => {
             resolve(response.data);
         })
@@ -77,7 +77,7 @@ export const getMonsterById = (monsterId) => {
 
 export const getCardsByPlayerId = (playerId) => {
   return new Promise((resolve, reject) => {
-    axios.get( process.env.REACT_APP_API_URL + '/players/' + playerId + '/cards')
+    axios.get( process.env.REACT_APP_API_URL + '/api/players/' + playerId + '/cards', { headers })
         .then((response) => {
             resolve(response.data);
         })
@@ -91,7 +91,7 @@ export const getCardsByPlayerId = (playerId) => {
 
 export const newGame = (form) => {
   return new Promise((resolve, reject) => {
-    axios.post(process.env.REACT_APP_API_URL+'/api/games',form, { headers },)
+    axios.post(process.env.REACT_APP_API_URL + '/api/games',form, { headers })
         .then((response) => {
             resolve(response.data);
         })
@@ -101,9 +101,17 @@ export const newGame = (form) => {
     })
 }
 
-export const nextTurn = (gameId, cardId) => {
-  return axios.post( process.env.REACT_APP_API_URL + '/games/' + gameId + '/next-turn',
-  {
-    card: cardId,
-  });
+export const nextTurn = (form) => {
+  //gameId, cardId
+  return new Promise((resolve, reject) => {
+    axios.post(process.env.REACT_APP_API_URL + '/api/games/' + form.gameId + '/next-turn',
+      form, 
+      { headers })
+                  .then((response) => {
+                      resolve(response.data);
+                  })
+                  .catch((error) => {
+                      reject(error);
+                  });
+    })
 }

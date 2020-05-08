@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Grid, Card, Typography, CardContent, CardActions, Button } from '@material-ui/core'
+import { Container, Grid, Card, Typography, CardContent, Avatar } from '@material-ui/core'
+
 
 const useStyles = makeStyles({
     root: {
@@ -13,7 +14,7 @@ const useStyles = makeStyles({
       transform: 'scale(0.8)',
     },
     title: {
-      fontSize: 14,
+      fontSize: 25,
     },
     pos: {
       marginBottom: 12,
@@ -23,19 +24,20 @@ const useStyles = makeStyles({
 const Player = (props) => {
 
     const classes = useStyles();
-
+    
     return ( 
         <Container>
             <Grid container justify="center" xs={12} sm={8} >
                 <Card className={classes.root}>
                     <CardContent>
+                        <Avatar alt="Remy Sharp" src={props.player.image ? props.player.image : null } className={classes.large} />
                         <Typography className={classes.title} color="textSecondary" gutterBottom>
-                            { props.name }
+                            { props.player.name }
+                        </Typography>
+                        <Typography className={classes.title} color="textSecondary" gutterBottom>
+                            { props.player.hp } / { props.player.maxHp }
                         </Typography>
                     </CardContent>
-                    <CardActions>
-                        <Button size="small">{ "Boton" }</Button>
-                    </CardActions>
                 </Card>
             </Grid>
         </Container>
